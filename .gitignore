@@ -4,3 +4,4 @@ rootfs/
 rootfs_server
 deb_packages/
 .repo/
+.vscode/

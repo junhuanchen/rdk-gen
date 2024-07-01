@@ -66,6 +66,9 @@ EOF
   # Configure fake-hwclock
   date '+%Y-%m-%d %H:%M:%S' > "${DST_ROOTFS_DIR}"/etc/fake-hwclock.data
 
+  # Configure ssh
+  mkdir -p "${DST_ROOTFS_DIR}"/home/sunrise/.ssh
+
   # Disable unattended upgrade
   if [ -e "${DST_ROOTFS_DIR}/etc/apt/apt.conf.d/20auto-upgrades" ]; then
     sed -i "s/Unattended-Upgrade \"1\"/Unattended-Upgrade \"0\"/" \
@@ -102,4 +105,10 @@ EOF
   chroot "${DST_ROOTFS_DIR}" /bin/bash -c "(echo ${SUN_PWD};echo ${SUN_PWD};) | passwd ${SUN_USERNAME}"
 
   chroot "${DST_ROOTFS_DIR}" /bin/bash -c "cp -aRf /etc/skel/. /root/"
+
+  # Copy sunrise.gpg
+  cp ./hzwl/sunrise.gpg "${DST_ROOTFS_DIR}"/usr/share/keyrings/sunrise.gpg
+
+  # Copy sunrise.list
+  # sed -i 's/archive\.sunrisepi\.tech/sunrise\.horizon\.cc/g' "${DST_ROOTFS_DIR}"/etc/apt/sources.list.d/sunrise.list
 }

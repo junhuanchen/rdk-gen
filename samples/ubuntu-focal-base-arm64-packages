@@ -183,3 +183,4 @@ wireless-regdb
 wireless-tools
 wpasupplicant
 xfonts-intl-chinese
+libmodbus-dev

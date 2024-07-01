@@ -191,11 +191,18 @@ function build_distclean()
     make distclean
 }
 
+function build_menuconfig()
+{
+    make menuconfig
+}
+
 # 进入内核目录
 cd ${KERNEL_SRC_DIR}
 # 根据命令参数编译
 if [ $# -eq 0 ] || [ "$1" = "all" ]; then
     build_all
+elif [ "$1" = "menuconfig" ]; then
+    build_menuconfig
 elif [ "$1" = "clean" ]; then
     build_clean
 elif [ "$1" = "distclean" ]; then
